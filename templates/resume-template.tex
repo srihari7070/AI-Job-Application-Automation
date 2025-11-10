@@ -1,0 +1,303 @@
+%%%%
+% Professional Resume Template
+%%%%
+% Based on MTecknology's Resume
+% License: CC-BY-4
+% - https://creativecommons.org/licenses/by/4.0/legalcode.txt
+%%%%
+
+\documentclass[letterpaper,10pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%
+%% BEGIN_FILE: resume_template.sty
+%% NOTE: Everything between here and END_FILE can
+%% be relocated to "resume_template.sty" and then included with:
+%\usepackage{resume_template}
+
+% Dependencies
+% NOTE: Some packages (lastpage, hyperref) require second build!
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+
+% Sans-Serif Options
+%\usepackage[sfdefault]{FiraSans}
+%\usepackage[sfdefault]{roboto}
+%\usepackage[sfdefault]{noto-sans}
+%\usepackage[default]{sourcesanspro}
+
+% Serif Options
+\usepackage{CormorantGaramond}
+\usepackage{charter}
+
+% Colors
+% Use with \color{Name}
+% Can wrap entire heading with {\color{accent} [...] }
+\usepackage{xcolor}
+\definecolor{accentTitle}{HTML}{0e6e55}
+\definecolor{accentText}{HTML}{0e6e55}
+\definecolor{accentLine}{HTML}{a16f0b}
+
+% Misc. Options
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\urlstyle{same}
+
+% Adjust Margins
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-0.7in}
+\addtolength{\textheight}{1.4in}
+
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\setlength{\tabcolsep}{0pt}
+\setlength{\footskip}{3.7pt}
+\raggedbottom
+\raggedright
+
+% ATS Readability
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+%-----------------%
+% Custom Commands %
+%-----------------%
+
+% Centered title along with subtitle between HR
+% Usage: \documentTitle{Name}{Details}
+\newcommand{\documentTitle}[2]{
+  \begin{center}
+    {\Huge\color{accentTitle} #1}
+    \vspace{10pt}
+    {\color{accentLine} \hrule}
+    \vspace{2pt}
+    \footnotesize{#2}
+    \vspace{2pt}
+    {\color{accentLine} \hrule}
+  \end{center}
+}
+
+% Create a footer with correct padding
+% Usage: \documentFooter{\thepage of X}
+\newcommand{\documentFooter}[1]{
+  \setlength{\footskip}{10.25pt}
+  \fancyfoot[C]{\footnotesize #1}
+}
+
+% Simple wrapper to set up page numbering
+% Usage: \numberedPages
+% WARNING: Must run pdflatex twice!
+\newcommand{\numberedPages}{
+  \documentFooter{\thepage/\pageref{LastPage}}
+}
+
+% Section heading with horizontal rule
+% Usage: \section{Title}
+\titleformat{\section}{
+  \vspace{-5pt}
+  \color{accentText}
+  \raggedright\large\bfseries
+}{}{0em}{}[\color{accentLine}\titlerule]
+
+% Section heading with separator and content on same line
+% Usage: \tinysection{Title}
+\newcommand{\tinysection}[1]{
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}
+  {\large{\bfseries\color{accentText}#1} {\color{accentLine} |}}
+}
+
+% Indented line with arguments left/right aligned in document
+% Usage: \heading{Left}{Right}
+\newcommand{\heading}[2]{
+  \hspace{10pt}#1\hfill#2\\
+}
+
+% Adds \textbf to \heading
+\newcommand{\headingBf}[2]{
+  \heading{\textbf{#1}}{\textbf{#2}}
+}
+
+% Adds \textit to \heading
+\newcommand{\headingIt}[2]{
+  \heading{\textit{#1}}{\textit{#2}}
+}
+
+% Template for itemized lists
+% Usage: \begin{resume_list} [items] \end{resume_list}
+\newenvironment{resume_list}{
+  \vspace{-7pt}
+  \begin{itemize}[itemsep=-2px, parsep=1pt, leftmargin=30pt]
+}{
+  \end{itemize}
+}
+
+% Formats an item to use as an itemized title
+% Usage: \itemTitle{Title}
+\newcommand{\itemTitle}[1]{
+  \item[] \underline{#1}\vspace{4pt}
+}
+
+% Bullets used in itemized lists
+\renewcommand\labelitemi{--}
+
+%% END_FILE: resume_template.sty
+%%%%%%%%%%%%%%%%%%%%%%
+
+
+%===================%
+% Your Name's Resume %
+%===================%
+
+\begin{document}
+
+  %---------%
+  % Heading %
+  %---------%
+
+  \documentTitle{[Your Full Name]}{
+    \href{tel:+1234567890}{
+      \raisebox{-0.05\height} \faPhone\ +1 (234) 567-8900} ~ | ~
+    \href{mailto:your.email@example.com}{
+      \raisebox{-0.15\height} \faEnvelope\ your.email@example.com} ~ | ~
+    [Your City, Country] ~ | ~ \href{https://linkedin.com/in/your-profile}{\underline{\textcolor{blue}{LinkedIn}}} ~ | ~ \href{https://github.com/your-username}{\underline{\textcolor{blue}{GitHub}}}
+ ~ | ~ [Work Authorization Status]
+  }
+
+  %---------%
+  % Summary %
+  %---------%
+
+  \tinysection{Summary}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+    %-----------%
+  % Education %
+  %-----------%
+
+  \section{Education}
+
+  \headingBf{[University Name]}{[Start Date] -- [End Date]}
+  \headingIt{[Degree Program Name]}{[City, Country]}
+  \headingIt{[GPA/Grade]: [X.X] ([Grade Description])}{}
+  \begin{resume_list}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+    \item Ut labore et dolore magna aliqua, quis nostrud exercitation ullamco laboris nisi ut aliquip
+    \item Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+    \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+  \end{resume_list}
+
+  \vspace{5pt}
+  \headingBf{[Previous University Name]}{[Start Date] -- [End Date]}
+  \headingIt{[Previous Degree Program] (Minor: [Minor Subject])}{[City, Country]}
+  \headingIt{[GPA/Grade]: [X.X]/[X.X]}{}
+  \begin{resume_list}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+    \item Ut labore et dolore magna aliqua, quis nostrud exercitation ullamco laboris
+  \end{resume_list}
+
+
+  %------------%
+  % Experience %
+  %------------%
+
+  \section{Experience}
+
+  \headingBf{[Company Name 1]}{[Start Date] -- [End Date]}
+  \headingIt{[Job Title] - [Department/Team]}{[City, Country]}
+  \begin{resume_list}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    \item Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+    \item Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+    \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium
+    \item Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
+  \end{resume_list}
+
+  \headingBf{[Company Name 2]}{[Start Date] -- [End Date]}
+  \headingIt{[Job Title] - [Department/Team]}{[City, Country]}
+  \begin{resume_list}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+    \item Ut labore et dolore magna aliqua, quis nostrud exercitation ullamco laboris nisi ut aliquip
+    \item Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+    \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+    \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+  \end{resume_list}
+
+
+  %-----------------%
+  % Projects & Research %
+  %-----------------%
+
+  \section{Key Projects}
+
+  \headingBf{[Project Name 1] - [Project Type/Category]}{[Organization/Context]}
+  \begin{resume_list}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    \item Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+    \item Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+    \item Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+    \item Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+  \end{resume_list}
+
+  \headingBf{[Project Name 2] - [Project Type/Category]}{[Organization/Context]}
+  \begin{resume_list}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+    \item Ut labore et dolore magna aliqua, quis nostrud exercitation ullamco laboris
+    \item Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+    \item Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+  \end{resume_list}
+
+  \headingBf{[Project Name 3] - [Project Type/Category]}{[Organization/Context]}
+  \begin{resume_list}
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+    \item Ut labore et dolore magna aliqua, quis nostrud exercitation ullamco laboris
+    \item Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+  \end{resume_list}
+
+
+   %--------%
+  % Skills %
+  %--------%
+
+  \section{Skills}
+
+  \begin{multicols}{2}
+    \begin{itemize}[itemsep=-2px, parsep=1pt, leftmargin=100pt]
+      \item[\textbf{[Category 1]}] Skill A, Skill B, Skill C, Skill D
+      \item[\textbf{[Category 2]}] Tool A, Tool B, Tool C, Framework D
+      \item[\textbf{[Category 3]}] Platform A, Platform B, Service C
+      \item[\textbf{[Category 4]}] Technology A, Technology B, Library C
+      \item[\textbf{[Category 5]}] Method A, Process B, Framework C
+      \item[\textbf{[Category 6]}] Skill X, Skill Y, Protocol Z
+    \end{itemize}
+  \end{multicols}
+
+  %--------------%
+  % Languages %
+  %--------------%
+
+  \section{Languages}
+
+  \begin{multicols}{3}
+    \begin{itemize}[itemsep=-2px, parsep=1pt, leftmargin=50pt]
+      \item[\textbf{[Language 1]}] [Proficiency Level]
+      \item[\textbf{[Language 2]}] [Proficiency Level]
+      \item[\textbf{[Language 3]}] [Proficiency Level]
+    \end{itemize}
+  \end{multicols}
+
+\end{document}

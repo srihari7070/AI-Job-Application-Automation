@@ -1,0 +1,163 @@
+%%%%
+% Professional German Cover Letter Template (DIN 5008)
+%%%%
+% Based on German business letter standards
+% License: CC-BY-4
+%%%%
+
+\documentclass[letterpaper,11pt]{article}
+
+% Dependencies
+\usepackage[empty]{fullpage}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{fontawesome5}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+
+% Font Options (choose one)
+%\usepackage[sfdefault]{roboto}        % Modern sans-serif
+%\usepackage[sfdefault]{noto-sans}     % Clean sans-serif
+\usepackage{CormorantGaramond}         % Professional serif
+\usepackage{charter}
+
+% Colors (matching resume template)
+\usepackage{xcolor}
+\definecolor{accentTitle}{HTML}{0e6e55}
+\definecolor{accentText}{HTML}{0e6e55}
+\definecolor{accentLine}{HTML}{a16f0b}
+
+% Page Setup
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\urlstyle{same}
+
+% Margins (German DIN 5008 standard)
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.8in}
+\addtolength{\textheight}{1.6in}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
+% Custom Commands
+\newcommand{\letterDate}[1]{
+  \vspace{-20pt}
+  \hfill #1
+  \vspace{20pt}
+}
+
+\newcommand{\senderInfo}[5]{
+  \begin{minipage}[t]{0.45\textwidth}
+    {\color{accentTitle}\large\textbf{#1}}\\
+    #2\\
+    #3\\
+    #4\\
+    \href{mailto:#5}{#5}
+  \end{minipage}
+}
+
+\newcommand{\recipientInfo}[4]{
+  \vspace{15pt}
+  \textbf{#1}\\
+  #2\\
+  #3\\
+  #4
+  \vspace{15pt}
+}
+
+\newcommand{\letterSubject}[1]{
+  \textbf{Betreff: #1}
+  \vspace{15pt}
+}
+
+\newcommand{\letterOpening}[1]{
+  #1,
+  \vspace{8pt}
+}
+
+\newcommand{\letterClosing}[1]{
+  \vspace{10pt}
+  #1\\
+  \vspace{25pt}
+  [Your Signature Space]\\
+  {\color{accentTitle}\textbf{[Your Full Name]}}
+}
+
+% Document Start
+\begin{document}
+
+%-----------------%
+% Sender Address %
+%-----------------%
+
+\senderInfo{[Your Full Name]}
+          {[Your Street Address]}
+          {[Your Postal Code, City]}
+          {[Your Country]}
+          {your.email@example.com}
+
+\letterDate{[City], [Date]}
+
+%-------------------%
+% Recipient Address %
+%-------------------%
+
+\recipientInfo{[Hiring Manager Name / Company Name]}
+              {[Department Name]}
+              {[Company Address]}
+              {[Postal Code, City]}
+
+%---------%
+% Subject %
+%---------%
+
+\letterSubject{Bewerbung als [Position Title] - [Application Type]}
+
+%----------%
+% Greeting %
+%----------%
+
+\letterOpening{Sehr geehrte Damen und Herren} % or "Sehr geehrte/r Herr/Frau [Lastname]"
+
+%-----------------%
+% Letter Content %
+%-----------------%
+
+% Paragraph 1: Introduction & Connection
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+% Paragraph 2: Professional Experience & Technical Skills
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam. Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+
+% Paragraph 3: Motivation & Company Fit
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
+
+% Paragraph 4: Availability & Closing
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate. Non provident similique sunt in culpa qui officia deserunt mollitia animi. Id est laborum et dolorum fuga et harum quidem rerum facilis.
+
+%----------%
+% Closing  %
+%----------%
+
+\letterClosing{Mit freundlichen Grüßen}
+
+%-----------%
+% Attachments %
+%-----------%
+
+\vspace{15pt}
+\textbf{Anlagen:}
+\begin{itemize}
+  \item Lebenslauf
+  \item [Additional Document 1]
+  \item [Additional Document 2]
+\end{itemize}
+
+\end{document}
