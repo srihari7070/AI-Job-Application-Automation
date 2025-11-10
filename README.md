@@ -35,7 +35,7 @@ This n8n workflow automates the entire job application process from discovery to
 - **Email Logging**: Full audit trail of outreach activities
 - **Success Metrics**: Response tracking and optimization data
 
-## Technical Architecture
+## n8n workflow
 
 ![Workflow Overview](screenshots/n8n%20workflow%201.png)
 
@@ -141,7 +141,7 @@ docker run -it --rm --name n8n -p 5678:5678 -v ~/.n8n:/home/node/.n8n n8nio/n8n
 ```
 
 ### Workflow Import
-1. Download `improved-workflow.json`
+1. Download `job-application-workflow v2.json`
 2. Open n8n interface at `http://localhost:5678`
 3. Import workflow file
 4. Configure API credentials
