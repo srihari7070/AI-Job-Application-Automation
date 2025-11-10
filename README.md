@@ -6,36 +6,36 @@
 [![Claude AI](https://img.shields.io/badge/Claude-AI-000000.svg)](https://claude.ai/)
 [![Gmail](https://img.shields.io/badge/Gmail-Integration-EA4335.svg)](https://gmail.com)
 
-## 🎯 Project Overview
+## Project Overview
 
 This n8n workflow automates the entire job application process from discovery to personalized outreach. It intelligently filters job opportunities using AI, conducts deep company research, and sends personalized emails to hiring managers with company-specific insights.
 
 **Key Achievement:** Transforms manual job hunting from hours to minutes while maintaining professional quality and personalization.
 
-## 🚀 Core Features
+## Core Features
 
-### ✨ Intelligent Job Discovery
+### Intelligent Job Discovery
 - **LinkedIn Job Scraping**: Automated extraction of AI/ML positions in Germany
 - **Smart Filtering**: Claude AI evaluates job relevance based on candidate profile
 - **Duplicate Detection**: Eliminates redundant opportunities
 
-### 🔍 AI-Powered Company Research
+### AI-Powered Company Research
 - **Deep Company Analysis**: Background, recent news, technology stack, culture
 - **Strategic Insights**: Business model understanding and growth initiatives
 - **Competitive Intelligence**: Market positioning and key differentiators
 
-### 📧 Automated Email Outreach
+### Automated Email Outreach
 - **Smart Email Discovery**: AI finds hiring manager and recruiter contact information
 - **Personalized Content**: Company-specific insights in every email
 - **Professional Format**: Mentions Pflichtpraktikum requirement naturally
 - **Enthusiasm + Research**: Genuine interest backed by specific company knowledge
 
-### 📊 Complete Tracking
+### Complete Tracking
 - **Excel Export**: All filtered opportunities with analysis scores
 - **Email Logging**: Full audit trail of outreach activities
 - **Success Metrics**: Response tracking and optimization data
 
-## 🛠️ Technical Architecture
+## Technical Architecture
 
 ![Workflow Overview](screenshots/n8n%20workflow%201.png)
 
@@ -47,9 +47,9 @@ This n8n workflow automates the entire job application process from discovery to
 5. **Email Generation** (Personalized outreach)
 6. **Automated Sending** (Gmail integration)
 
-![Detailed Flow](screenshots/n8n%20workflow%202.png)
+![Workflow Overview Version 2](screenshots/n8n%20workflow%202.png)
 
-## 📋 Workflow Steps
+## Workflow Steps
 
 ### 1. **Job Discovery**
 - Scrapes LinkedIn for AI/ML positions in Germany
@@ -85,7 +85,7 @@ This n8n workflow automates the entire job application process from discovery to
 - Maintains professional sending cadence
 - Logs all outreach for follow-up tracking
 
-## 🎯 Use Case Example
+## Use Case Example
 
 **Input:** Job posting for "Data Engineer - Working Student" at BMW
 **AI Research Output:**
@@ -109,13 +109,13 @@ Best regards,
 Srihari Ananthan
 ```
 
-## 📊 Performance Metrics
+## Performance Metrics
 
 ### Efficiency Gains
-- **95% Time Reduction**: From 2 hours to 6 minutes per quality application
+- **Time Reduction**: From 2 hours to 6 minutes per quality application
 - **Smart Filtering**: Only 10-15% of jobs pass AI quality filter
 - **Automated Research**: 5+ minutes of company research per application
-- **Email Discovery**: 90% success rate finding valid contact emails
+- **Email Discovery**: Good success rate finding valid contact emails
 
 ### Quality Improvements
 - **Personalized Outreach**: Every email includes company-specific insights
@@ -170,7 +170,7 @@ docker run -it --rm --name n8n -p 5678:5678 -v ~/.n8n:/home/node/.n8n n8nio/n8n
 ### Email Templates
 The AI automatically generates emails, but you can influence the tone by modifying the email generation prompt with specific requirements or examples.
 
-## 📈 Success Optimization
+## Success Optimization
 
 ### Best Practices
 - **Regular Testing**: Monitor AI responses for quality and accuracy
@@ -184,7 +184,7 @@ The AI automatically generates emails, but you can influence the tone by modifyi
 - Adjust filtering criteria based on interview success rates
 - Monitor and improve email discovery accuracy
 
-## 🎯 Business Impact
+## Business Impact
 
 This workflow demonstrates several key capabilities valuable to employers:
 
