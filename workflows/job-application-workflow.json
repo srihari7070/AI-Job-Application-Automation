@@ -1,1 +1,368 @@
-
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "claude-3-haiku-20240307",
+          "mode": "list",
+          "cachedResultName": "claude-3-haiku-20240307"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Job Filtering Prompt for N8N Pipeline\nContext\nYou are filtering job opportunities for a person.\n- Availability: Seeking working student positions or internships\n- Language: A2 German, fluent English\n\nWhat He's Looking For\n- Data science and analytics roles\n- Machine learning and AI positions (primary interest)\n- Software development with data/ML components\n- E-commerce and product analytics\n- Supply chain and energy storage sector\n- Business intelligence and data engineering\n- Startups or established tech companies\n- Any opportunity to apply AI/ML in real business contexts\n- AI automation pipelines (n8n)\n\nGeographic Requirements:\n- MUST be in Germany (any city, remote/hybrid acceptable)\n\nREJECT jobs that:\n- Are outside Germany (unless explicitly remote for German companies)\n- Are clearly spam/fake postings\n\nJob ID: {{ $json.id }}\nJob Details:\n{{ $json.link }}\n{{ $json.title }}\n{{ $json.companyName }}\n{{ $json.companyLinkedinUrl }}\n{{ $json.location }}\n{{ $json.salaryInfo }}\n{{ $json.applyUrl }}\n{{ $json.descriptionText }}\n{{ $json.employmentType }}\n{{ $json.inputUrl }}\n{{ $json.companyWebsite }}\n\nRespond with only JSON: {\"id\": \"{{ $json.id }}\", \"verdict\": \"true\"} or {\"id\": \"{{ $json.id }}\", \"verdict\": \"false\"}\nRespond with ONLY the JSON object. No additional text or explanation."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.anthropic",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        320
+      ],
+      "id": "f2ebe26c-51db-4fef-b139-c4304a182dcd",
+      "name": "Message a model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "<ID HERE>",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1312,
+        -32
+      ],
+      "id": "ac3b0392-e673-49e2-b967-02441cf3ce38",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1872,
+        128
+      ],
+      "id": "165ac093-f84c-4644-a12a-223b8e797ca0",
+      "name": "Wait",
+      "webhookId": "ca7d44a8-bc23-4294-a51f-e50e5bbc1c25"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Claude's response\nconst responseText = items[0].json.content[0].text;\nconst result = JSON.parse(responseText);\n\nreturn [{\n  json: {\n    job_id: result.id,\n    verdict: result.verdict,\n    passes_filter: result.verdict === \"true\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1952,
+        320
+      ],
+      "id": "f7bc821a-b4db-46f2-93db-d07f35fdba09",
+      "name": "Code"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        16
+      ],
+      "id": "8812c854-6cfc-4bd3-9993-068414b2dffc",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://docs.google.com/document/d/<YOUR DOCUMENT HERE>/edit?usp=sharing",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        0
+      ],
+      "id": "a751f419-3f5a-41fc-8aa3-d28996b1cbf9",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "url": "https://docs.google.com/document/d/<YOUR DOCUMENT HERE>/edit?usp=sharing",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        304,
+        16
+      ],
+      "id": "9dbf3fbe-42de-4737-9683-ec9f0eaaac3d",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3804b3de-6861-433e-9be5-fdbda468fe0d",
+              "leftValue": "={{ $json.claude_verdict }}",
+              "rightValue": "1",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1776,
+        -160
+      ],
+      "id": "abb62878-93a5-4837-9f2a-0cbefb472feb",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/hKByXkMQaC5Qt9UMN/run-sync-get-dataset-items",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer <TOKEN_HERE>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n    \"count\": 100,\n    \"scrapeCompany\": true,\n    \"urls\": [\n        \"https://de.linkedin.com/jobs/search?keywords=AI&location=Germany&geoId=101282230&f_E=1&f_TPR=r604800&position=1&pageNum=0\"\n    ]\n}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1056,
+        -32
+      ],
+      "id": "156a0c98-2917-418f-9eeb-3a54f2a6c2b8",
+      "name": "apify"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get Claude responses (with IDs and verdicts)\nconst claudeResults = $('Message a model').all().map(item => {\n  const response = JSON.parse(item.json.content[0].text);\n  return {\n    id: response.id,\n    verdict: response.verdict\n  };\n});\n//$('apify').first().json.id\n// Get original HTTP job results\nconst httpJobs = $('apify').all(); // Your original job data\n\n// Merge HTTP data with Claude verdicts\nconst mergedJobs = httpJobs.map(job => {\n  const claudeResult = claudeResults.find(c => c.id === job.json.id);\n  \n  return {\n    json: {\n      ...job.json, // All original HTTP job data\n      claude_verdict: claudeResult ? claudeResult.verdict : \"false\",\n      passes_filter: claudeResult ? claudeResult.verdict === \"true\" : false\n    }\n  };\n});\n\nreturn mergedJobs;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        -128
+      ],
+      "id": "a5b82abd-e4cd-4736-be8e-d4dfef0462f4",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get filtered job data\nconst filteredJobs = items;\n\n// Define Excel headers matching your JSON structure\nconst headers = [\n  'ID',\n  'Link',\n  'Title', \n  'Company Name',\n  'Company LinkedIn URL',\n  'Location',\n  'Salary Info',\n  'Apply URL',\n  'Description',\n  'Employment Type',\n  'Input URL',\n  'Company Website',\n  'Claude Verdict',\n  'Approved',\n  'Date Filtered'\n];\n\n// Function to clean data for Excel\nfunction cleanForExcel(value) {\n  if (value === null || value === undefined) return '';\n  if (typeof value === 'object') return JSON.stringify(value);\n  return String(value).replace(/[\\n\\r]/g, ' ').trim();\n}\n\n// Create Excel rows from filtered JSON data\nconst excelRows = filteredJobs.map(item => {\n  const job = item.json;\n  return [\n    cleanForExcel(job.id),\n    cleanForExcel(job.link),\n    cleanForExcel(job.title),\n    cleanForExcel(job.companyName),\n    cleanForExcel(job.companyLinkedinUrl),\n    cleanForExcel(job.location),\n    cleanForExcel(job.salaryInfo),\n    cleanForExcel(job.applyUrl),\n    cleanForExcel(job.descriptionText),\n    cleanForExcel(job.employmentType),\n    cleanForExcel(job.inputUrl),\n    cleanForExcel(job.companyWebsite),\n    cleanForExcel(job.claude_verdict),\n    cleanForExcel(job.approved),\n    new Date().toISOString().split('T')[0]\n  ];\n});\n\n// Create CSV content (Excel can read CSV)\nconst csvContent = [\n  headers.join(','),\n  ...excelRows.map(row => \n    row.map(cell => `\"${String(cell).replace(/\"/g, '\"\"')}\"`).join(',')\n  )\n].join('\\n');\n\n// Create Excel file\nconst fileName = `filtered_jobs_${new Date().toISOString().split('T')[0]}.xlsx`;\n\nreturn [{\n  json: {\n    fileName: fileName,\n    totalFilteredJobs: filteredJobs.length,\n    fileCreated: true,\n    message: `Created Excel file with ${filteredJobs.length} filtered jobs`\n  },\n  binary: {\n    data: {\n      data: Buffer.from(csvContent, 'utf8').toString('base64'),\n      mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',\n      fileName: fileName\n    }\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1984,
+        -160
+      ],
+      "id": "b4b259d0-eaf3-4049-a60c-0daf65b47f5a",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "./filtered_jobs.xlsx  ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2192,
+        -160
+      ],
+      "id": "18634d02-1af3-4deb-b248-08a14d684ad9",
+      "name": "Read/Write Files from Disk"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "apify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "apify": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "127c87db-81a3-4a07-b514-19ea91cb4284",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "<INSTANCE ID>"
+  },
+  "id": "pmFFkaSd6rG8z0Pa",
+  "tags": []
+}
